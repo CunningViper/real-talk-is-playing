@@ -1,6 +1,7 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import os
+from flask import Flask
 
 
 CLIENT_TOKEN = os.environ["CLIENT_TOKEN"]
@@ -30,4 +31,9 @@ def current_track_is_real_talk():
     return False
 
 
-print("true" if current_track_is_real_talk() else "false")
+app = Flask(__name__)
+
+
+@app.route('/')
+def hello_world():
+    return "true" if current_track_is_real_talk() else "false"
