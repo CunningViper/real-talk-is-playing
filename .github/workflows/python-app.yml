@@ -38,5 +38,6 @@ jobs:
       env:
         CLIENT_ID: ${{ secrets.CLIENT_ID }}
         CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        CLIENT_TOKEN: ${{ secrets.CLIENT_TOKEN }}
       run: |
         python main.py
