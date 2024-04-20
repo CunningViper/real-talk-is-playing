@@ -3,13 +3,9 @@ from spotipy.oauth2 import SpotifyOAuth
 import os
 
 
-CLIENT_ID = os.environ["CLIENT_ID"]
-CLIENT_SECRET = os.environ["CLIENT_SECRET"]
+CLIENT_TOKEN = os.environ["CLIENT_TOKEN"]
 
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=CLIENT_ID,
-                                               client_secret=CLIENT_SECRET,
-                                               redirect_uri="http://localhost:8080",
-                                               scope="user-library-read user-read-currently-playing"))
+sp = spotipy.Spotify(auth=CLIENT_TOKEN)
 
 playlists = sp.current_user_playlists()['items']
 real_talk = None
