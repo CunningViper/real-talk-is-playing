@@ -106,6 +106,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
+    global access_token
+    access_token = refresh_access_token()
     # return a json str for widgy to parse
     return json.dumps(current_track_is_real_talk())
 
