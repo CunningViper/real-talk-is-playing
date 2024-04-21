@@ -60,17 +60,19 @@ real_talk_tracks = {track['track']['id']: track['track']
 
 
 def current_track_is_real_talk():
-    current_id = None
+    current = None
     try:
-        current_id = sp.currently_playing()
+        current = sp.currently_playing()
     except:
         access_token = refresh_access_token()
-        current_id = sp.currently_playing()
+        current = sp.currently_playing()
 
-    if current_id != None:
-        current_id = current_id['item']['id']
+    if current != None:
+        name = current['item']['name']
+        img = current['item']['album']['images'][2]['url']
+        current_id = current['item']['id']
 
-        return {'id': current_id, 'name': real_talk_tracks[current_id]['name'], 'img': real_talk_tracks[current_id]['album']['images'][2]['url'], 'real_talk': current_id in real_talk_tracks.keys()}
+        return {'id': current_id, 'name': name, 'img': img, 'real_talk': current_id in real_talk_tracks.keys()}
 
     return {'id': None, 'name': None, 'img': None, 'real_talk': None}
 
@@ -81,3 +83,12 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     return json.dumps(current_track_is_real_talk())
+
+
+@app.route('/image')
+def get_image():
+    track = current_track_is_real_talk()
+    if track['name']:
+        return track['img']
+
+    return "https://m.media-amazon.com/images/I/51rttY7a+9L.png"
