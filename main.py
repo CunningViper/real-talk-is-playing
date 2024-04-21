@@ -6,7 +6,7 @@ import os
 import json
 import base64
 import requests
-
+import random
 
 CLIENT_ID = os.environ["CLIENT_ID"]
 CLIENT_SECRET = os.environ["CLIENT_SECRET"]
@@ -74,7 +74,10 @@ def current_track_is_real_talk():
 
         return {'id': current_id, 'name': name, 'img': img, 'real_talk': current_id in real_talk_tracks.keys()}
 
-    return {'id': None, 'name': None, 'img': None, 'real_talk': None}
+    NOTHING_IS_PLAYING = ["Spotify", "Nothing's playing...",
+                          "Huh?", "Spotify.com", "Apple music 🤮"]
+
+    return {'id': None, 'name': random.choice(NOTHING_IS_PLAYING), 'img': None, 'real_talk': False}
 
 
 app = Flask(__name__)
@@ -89,7 +92,7 @@ def hello_world():
 def get_image():
     def get_image_url():
         track = current_track_is_real_talk()
-        if track['name']:
+        if track['id']:
             return track['img']
 
         return "https://m.media-amazon.com/images/I/51rttY7a+9L.png"
