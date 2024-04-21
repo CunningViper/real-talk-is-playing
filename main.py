@@ -2,7 +2,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import os
 from flask import Flask
-
+import json
 
 CLIENT_TOKEN = os.environ["CLIENT_TOKEN"]
 
@@ -26,9 +26,9 @@ def current_track_is_real_talk():
     if current_id != None:
         current_id = current_id['item']['id']
 
-        return {'id': current_id, 'name': real_talk_tracks[current_id]} if current_id in real_talk_tracks.keys() else False
+        return {'id': current_id, 'name': real_talk_tracks[current_id]['name'], 'img': real_talk_tracks[current_id]['album']['images'][2]['url']} if current_id in real_talk_tracks.keys() else {'id': None, 'name': None, 'img': None}
 
-    return False
+    return {'id': None, 'name': None, 'img': None}
 
 
 app = Flask(__name__)
@@ -36,6 +36,5 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    is_playing = current_track_is_real_talk()
-    return is_playing["name"] if is_playing else "false"
+    return json.dumps(current_track_is_real_talk())
 
