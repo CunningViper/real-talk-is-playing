@@ -36,5 +36,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return "true" if current_track_is_real_talk() else "false"
+    is_playing = current_track_is_real_talk()
+    return is_playing["name"] if is_playing else "false"
 
