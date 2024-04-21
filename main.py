@@ -37,3 +37,6 @@ app = Flask(__name__)
 @app.route('/')
 def hello_world():
     return "true" if current_track_is_real_talk() else "false"
+
+
+app.run()
