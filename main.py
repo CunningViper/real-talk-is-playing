@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, redirect
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import spotipy.util as util
