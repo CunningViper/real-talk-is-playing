@@ -87,8 +87,13 @@ def hello_world():
 
 @app.route('/image')
 def get_image():
-    track = current_track_is_real_talk()
-    if track['name']:
-        return track['img']
+    def get_image_url():
+        track = current_track_is_real_talk()
+        if track['name']:
+            return track['img']
 
-    return "https://m.media-amazon.com/images/I/51rttY7a+9L.png"
+        return "https://m.media-amazon.com/images/I/51rttY7a+9L.png"
+
+    url = get_image_url()
+
+    return redirect(url)"
