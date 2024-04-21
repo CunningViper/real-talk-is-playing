@@ -70,9 +70,9 @@ def current_track_is_real_talk():
     if current_id != None:
         current_id = current_id['item']['id']
 
-        return {'id': current_id, 'name': real_talk_tracks[current_id]['name'], 'img': real_talk_tracks[current_id]['album']['images'][2]['url']} if current_id in real_talk_tracks.keys() else {'id': None, 'name': None, 'img': None}
+        return {'id': current_id, 'name': real_talk_tracks[current_id]['name'], 'img': real_talk_tracks[current_id]['album']['images'][2]['url'], 'real_talk': current_id in real_talk_tracks.keys()}
 
-    return {'id': None, 'name': None, 'img': None}
+    return {'id': None, 'name': None, 'img': None, 'real_talk': None}
 
 
 app = Flask(__name__)
