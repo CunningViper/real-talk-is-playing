@@ -96,4 +96,4 @@ def get_image():
 
     url = get_image_url()
 
-    return redirect(url)"
+    return redirect(url)
